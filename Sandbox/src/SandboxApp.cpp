@@ -1,3 +1,4 @@
+#include <cstdio>
 #include <Sapling.h>
 
 class Sandbox : public Sapling::Application
@@ -5,6 +6,7 @@ class Sandbox : public Sapling::Application
 public:
 	Sandbox()
 	{
+		printf("SandboxApp started!");
 	}
 
 	~Sandbox()
