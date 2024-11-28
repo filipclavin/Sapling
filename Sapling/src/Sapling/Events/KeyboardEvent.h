@@ -9,7 +9,7 @@ namespace Sapling
 	public:
 		KeyCode GetKeyCode() const { return _keyCode; }
 
-		EVENT_CLASS_CATEGORY(EventCategoryKeyboard, EventCategoryInput)
+		EVENT_CLASS_CATEGORY(EventCategoryKeyboard | EventCategoryInput)
 
 	protected:
 		KeyEvent(KeyCode keyCode)
@@ -69,7 +69,7 @@ namespace Sapling
 	class SAPLING_API CharEvent : public Event
 	{
 	public:
-		unsigned int GetCharCode() const { return _codepoint; }
+		unsigned int GetCodepoint() const { return _codepoint; }
 
 		EVENT_CLASS_CATEGORY(EventCategoryKeyboard | EventCategoryInput)
 
