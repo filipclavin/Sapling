@@ -157,11 +157,11 @@
     <ClInclude Include="src\Sapling\Core\Application.h" />
     <ClInclude Include="src\Sapling\Core\Base.h" />
     <ClInclude Include="src\Sapling\Core\EntryPoint.h" />
+    <ClInclude Include="src\Sapling\Core\Window.h" />
     <ClInclude Include="src\Sapling\Events\ApplicationEvent.h" />
     <ClInclude Include="src\Sapling\Events\Event.h" />
     <ClInclude Include="src\Sapling\Events\KeyboardEvent.h" />
     <ClInclude Include="src\Sapling\Events\MouseEvent.h" />
-    <ClInclude Include="src\Sapling\Core\Window.h" />
     <ClInclude Include="src\sappch.h" />
   </ItemGroup>
   <ItemGroup>

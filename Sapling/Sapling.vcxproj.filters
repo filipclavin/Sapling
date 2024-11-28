@@ -10,6 +10,9 @@
     <Filter Include="Sapling">
       <UniqueIdentifier>{93734DE3-FF52-CC7E-086B-575574C932E0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sapling\Core">
+      <UniqueIdentifier>{CBCB0C97-B72E-9C3B-60B4-D4F14CF667BE}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Sapling\Events">
       <UniqueIdentifier>{17FC9092-03CA-8498-EC5D-F5BED8CA60FD}</UniqueIdentifier>
     </Filter>
@@ -20,13 +23,16 @@
     </ClInclude>
     <ClInclude Include="src\Sapling.h" />
     <ClInclude Include="src\Sapling\Core\Application.h">
-      <Filter>Sapling</Filter>
+      <Filter>Sapling\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Sapling\Core\Base.h">
-      <Filter>Sapling</Filter>
+      <Filter>Sapling\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Sapling\Core\EntryPoint.h">
-      <Filter>Sapling</Filter>
+      <Filter>Sapling\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Sapling\Core\Window.h">
+      <Filter>Sapling\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Sapling\Events\ApplicationEvent.h">
       <Filter>Sapling\Events</Filter>
@@ -40,9 +46,6 @@
     <ClInclude Include="src\Sapling\Events\MouseEvent.h">
       <Filter>Sapling\Events</Filter>
     </ClInclude>
-    <ClInclude Include="src\Sapling\Core\Window.h">
-      <Filter>Sapling</Filter>
-    </ClInclude>
     <ClInclude Include="src\sappch.h" />
   </ItemGroup>
   <ItemGroup>
@@ -50,7 +53,7 @@
       <Filter>Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\Sapling\Core\Application.cpp">
-      <Filter>Sapling</Filter>
+      <Filter>Sapling\Core</Filter>
     </ClCompile>
     <ClCompile Include="src\sappch.cpp" />
   </ItemGroup>
