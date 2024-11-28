@@ -60,7 +60,8 @@ project "Sapling"
 
 		postbuildcommands
 		{
-			("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox")
+      ("{MKDIR} ../bin/" .. outputdir .. "/Sandbox"),
+      ("{COPYFILE} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox/")
 		}
 
 	filter "configurations:Debug"
