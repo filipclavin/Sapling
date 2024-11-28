@@ -2,8 +2,8 @@
 
 // For use by Sapling applications
 
-#include "Sapling/Application.h"
+#include "Sapling/Core/Application.h"
 
 // ---Entry Point---------------------
-#include "Sapling/EntryPoint.h"
+#include "Sapling/Core/EntryPoint.h"
 // -----------------------------------

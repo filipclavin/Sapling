@@ -10,6 +10,12 @@ workspace "Sapling"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
+-- Include directories relative to root folder (solution directory)
+IncludeDir = {}
+IncludeDir["GLFW"] = "Sapling/vendor/GLFW/include"
+
+include "Sapling/vendor/GLFW"
+
 project "Sapling"
 	location "Sapling"
 	kind "SharedLib"
@@ -29,7 +35,14 @@ project "Sapling"
 
 	includedirs
 	{
-		"%{prj.name}/src"
+		"%{prj.name}/src",
+		"%{IncludeDir.GLFW}"
+	}
+
+	links
+	{
+		"GLFW",
+		"opengl32.lib"
 	}
 
 	filter "system:windows"

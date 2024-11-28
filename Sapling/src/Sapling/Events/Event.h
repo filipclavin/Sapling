@@ -1,7 +1,7 @@
 #pragma once
 
 #include "sappch.h"
-#include "Sapling/Core.h"
+#include "Sapling/Core/Base.h"
 
 namespace Sapling
 {
@@ -13,7 +13,8 @@ namespace Sapling
 		None = 0,
 		WindowClose, WindowResize, WindowFocus, WindowLostFocus, WindowMoved,
 		AppTick, AppUpdate, AppRender,
-		KeyPressed, KeyReleased,
+		KeyPressed, KeyRepeated, KeyReleased,
+		CharTyped, CharTypedWithMods,
 		MouseButtonPressed, MouseButtonReleased, MouseMoved, MouseScrolled
 	};
 
