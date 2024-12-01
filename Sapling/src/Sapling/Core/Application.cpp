@@ -18,6 +18,11 @@ namespace Sapling
 	{
 		while (_running)
 		{
+			for (Layer* layer : _layerStack)
+			{
+				layer->OnUpdate();
+			}
+
 			_window->OnUpdate();
 		}
 	}
@@ -28,6 +33,25 @@ namespace Sapling
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(Application::OnWindowClose));
 
 		std::cout << e << std::endl;
+
+		for (auto it = _layerStack.end(); it != _layerStack.begin();)
+		{
+			(*--it)->OnEvent(e);
+			if (e.Handled)
+			{
+				break;
+			}
+		}
+	}
+
+	void Application::PushLayer(Layer* layer)
+	{
+		_layerStack.PushLayer(layer);
+	}
+
+	void Application::PushOverlay(Layer* overlay)
+	{
+		_layerStack.PushOverlay(overlay);
 	}
 
 	bool Application::OnWindowClose(WindowCloseEvent& e)
