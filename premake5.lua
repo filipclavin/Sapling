@@ -16,8 +16,10 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 -- Include directories relative to root folder (solution directory)
 IncludeDir = {}
 IncludeDir["GLFW"] = "Sapling/vendor/GLFW/include"
+IncludeDir["Glad"] = "Sapling/vendor/Glad/include"
 
 include "Sapling/vendor/GLFW"
+include "Sapling/vendor/Glad"
 
 project "Sapling"
 	location "Sapling"
@@ -39,12 +41,14 @@ project "Sapling"
 	includedirs
 	{
 		"%{prj.name}/src",
-		"%{IncludeDir.GLFW}"
+		"%{IncludeDir.GLFW}",
+    "%{IncludeDir.Glad}"
 	}
 
 	links
 	{
 		"GLFW",
+    "Glad",
 		"opengl32.lib"
 	}
 
@@ -55,7 +59,8 @@ project "Sapling"
 		defines
 		{
 			"SAP_PLATFORM_WINDOWS",
-			"SAP_BUILD_DLL"
+			"SAP_BUILD_DLL",
+      "GLFW_INCLUDE_NONE"
 		}
 
 		postbuildcommands

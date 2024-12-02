@@ -5,6 +5,8 @@
 #include <Sapling/Events/MouseEvent.h>
 #include <Sapling/Events/KeyboardEvent.h>
 
+#include <glad/gl.h>
+
 namespace Sapling
 {
 	static bool s_GLFWInitialized = false;
@@ -49,6 +51,14 @@ namespace Sapling
 
 		_window = glfwCreateWindow((int)props.Width, (int)props.Height, _data.Title.c_str(), nullptr, nullptr);
 		glfwMakeContextCurrent(_window);
+
+		int glVersion = gladLoadGL(glfwGetProcAddress);
+
+		if (glVersion == 0)
+		{
+			std::cout << "Could not initialize GLAD!" << std::endl;
+			return;
+		}
 
 		// Used for event callbacks (pushes the window data to the callback)
 		glfwSetWindowUserPointer(_window, &_data);

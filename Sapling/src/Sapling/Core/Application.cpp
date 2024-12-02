@@ -1,6 +1,8 @@
 #include "sappch.h"
 #include "Application.h"
 
+#include <glad/gl.h>
+
 namespace Sapling
 {
 
@@ -18,6 +20,9 @@ namespace Sapling
 	{
 		while (_running)
 		{
+			glClearColor(0, 0, 1, 1);
+			glClear(GL_COLOR_BUFFER_BIT);
+
 			for (Layer* layer : _layerStack)
 			{
 				layer->OnUpdate();
