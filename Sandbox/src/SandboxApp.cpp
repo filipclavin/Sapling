@@ -1,4 +1,5 @@
 #include <Sapling.h>
+#include <imgui.h>
 
 class ExampleLayer : public Sapling::Layer
 {
@@ -16,6 +17,13 @@ public:
 	void OnEvent(Sapling::Event& event) override
 	{
 		std::cout << "ExampleLayer::" << event << std::endl;
+	}
+
+	void OnImGuiRender() override
+	{
+		ImGui::Begin("Test");
+		ImGui::Text("Hello World");
+		ImGui::End();
 	}
 };
 

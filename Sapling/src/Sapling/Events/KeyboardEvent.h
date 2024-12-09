@@ -7,22 +7,24 @@ namespace Sapling
 	class SAPLING_API KeyEvent : public Event
 	{
 	public:
-		KeyCode GetKeyCode() const { return _keyCode; }
+		unsigned int GetKeyCode() const { return _keyCode; }
+		unsigned int GetScancode() const { return _scancode; }
 
 		EVENT_CLASS_CATEGORY(EventCategoryKeyboard | EventCategoryInput)
 
 	protected:
-		KeyEvent(KeyCode keyCode)
-			: _keyCode(keyCode) {}
+		KeyEvent(unsigned int keyCode, unsigned int scancode)
+			: _keyCode(keyCode), _scancode(scancode) {}
 
-		KeyCode _keyCode;
+		unsigned int _keyCode;
+		unsigned int _scancode;
 	};
 
 	class SAPLING_API KeyPressedEvent : public KeyEvent
 	{
 	public:
-		KeyPressedEvent(KeyCode keyCode)
-			: KeyEvent(keyCode) {}
+		KeyPressedEvent(unsigned int keyCode, unsigned int scancode)
+			: KeyEvent(keyCode, scancode) {}
 
 		std::string ToString() const override
 		{
@@ -37,8 +39,8 @@ namespace Sapling
 	class SAPLING_API KeyRepeatedEvent : public KeyEvent
 	{
 	public:
-		KeyRepeatedEvent(KeyCode keyCode)
-			: KeyEvent(keyCode) {}
+		KeyRepeatedEvent(unsigned int keyCode, unsigned int scancode)
+			: KeyEvent(keyCode, scancode) {}
 
 		std::string ToString() const override
 		{
@@ -53,8 +55,8 @@ namespace Sapling
 	class SAPLING_API KeyReleasedEvent : public KeyEvent
 	{
 	public:
-		KeyReleasedEvent(KeyCode keyCode)
-			: KeyEvent(keyCode) {}
+		KeyReleasedEvent(unsigned int keyCode, unsigned int scancode)
+			: KeyEvent(keyCode, scancode) {}
 
 		std::string ToString() const override
 		{

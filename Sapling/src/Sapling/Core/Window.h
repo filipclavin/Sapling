@@ -37,6 +37,8 @@ namespace Sapling
 		virtual void SetVSync(bool enabled) = 0;
 		virtual bool IsVSync() const = 0;
 
+		virtual void* GetNativeWindow() const = 0;
+
 		// Implemented per platform
 		static Window* Create(const WindowProps& props = WindowProps());
 	};

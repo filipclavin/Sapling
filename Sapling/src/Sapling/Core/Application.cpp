@@ -8,8 +8,17 @@ namespace Sapling
 
 	Application::Application()
 	{
+		if (s_instance)
+		{
+			throw std::runtime_error("Application already exists!");
+		}
+		s_instance = this;
+
 		_window = std::unique_ptr<Window>(Window::Create());
 		_window->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
+
+		_imguiLayer = new ImGuiLayer();
+		PushOverlay(_imguiLayer);
 	}
 
 	Application::~Application()
@@ -23,10 +32,13 @@ namespace Sapling
 			glClearColor(0, 0, 1, 1);
 			glClear(GL_COLOR_BUFFER_BIT);
 
+			_imguiLayer->Begin();
 			for (Layer* layer : _layerStack)
 			{
 				layer->OnUpdate();
+				layer->OnImGuiRender();
 			}
+			_imguiLayer->End();
 
 			_window->OnUpdate();
 		}
@@ -52,11 +64,13 @@ namespace Sapling
 	void Application::PushLayer(Layer* layer)
 	{
 		_layerStack.PushLayer(layer);
+		layer->OnAttach();
 	}
 
 	void Application::PushOverlay(Layer* overlay)
 	{
 		_layerStack.PushOverlay(overlay);
+		overlay->OnAttach();
 	}
 
 	bool Application::OnWindowClose(WindowCloseEvent& e)

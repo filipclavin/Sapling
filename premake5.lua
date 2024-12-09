@@ -101,12 +101,13 @@ project "Sandbox"
 
 	includedirs
 	{
-		"Sapling/src"
+		"Sapling/src",
+    "%{IncludeDir.ImGui}"
 	}
 
 	links
 	{
-		"Sapling"
+		"Sapling",
 	}
 
 	filter "system:windows"

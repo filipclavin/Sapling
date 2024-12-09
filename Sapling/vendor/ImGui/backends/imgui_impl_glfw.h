@@ -64,4 +64,6 @@ IMGUI_IMPL_API void     ImGui_ImplGlfw_MonitorCallback(GLFWmonitor* monitor, int
 // GLFW helpers
 IMGUI_IMPL_API void     ImGui_ImplGlfw_Sleep(int milliseconds);
 
+ImGuiKey ImGui_ImplGlfw_KeyToImGuiKey(int keycode, int scancode);
+
 #endif // #ifndef IMGUI_DISABLE

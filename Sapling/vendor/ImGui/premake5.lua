@@ -19,6 +19,8 @@ project "ImGui"
     }
 
     includedirs {
-        ".",
-        "../GLFW/include"
+        _WORKING_DIR .. "/" .. IncludeDir["ImGui"],
+        _WORKING_DIR .. "/" .. IncludeDir["GLFW"]
     }
+
+    defines { "IMGUI_API=__declspec(dllexport)" }

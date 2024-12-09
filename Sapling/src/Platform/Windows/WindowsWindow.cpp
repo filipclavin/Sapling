@@ -83,25 +83,25 @@ namespace Sapling
 			data.EventCallback(event);
 		});
 
-		glfwSetKeyCallback(_window, [](GLFWwindow* window, int key, int scanCode, int action, int mods)
+		glfwSetKeyCallback(_window, [](GLFWwindow* window, int key, int scancode, int action, int mods)
 		{
 			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 			switch (action)
 			{
 			case GLFW_PRESS:
 			{
-				KeyPressedEvent event(key);
+				KeyPressedEvent event(key, scancode);
 				data.EventCallback(event);
 				break;
 			}
 			case GLFW_RELEASE:
 			{
-				KeyReleasedEvent event(key);
+				KeyReleasedEvent event(key, scancode);
 				data.EventCallback(event);
 				break;
 			}
 			case GLFW_REPEAT:
-				KeyRepeatedEvent event(key);
+				KeyRepeatedEvent event(key, scancode);
 				data.EventCallback(event);
 				break;
 			}
