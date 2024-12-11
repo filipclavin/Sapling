@@ -1,0 +1,10 @@
+^C:\SRC\COPY_SAPLING\CMAKEFILES\4F449740D42FC98FF085B0911300763F\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/src/Copy_Sapling -BC:/src/Copy_Sapling --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/src/Copy_Sapling/Sapling.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

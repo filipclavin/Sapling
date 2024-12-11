@@ -7,7 +7,7 @@
 
 namespace Sapling
 {
-	class SAPLING_API LayerStack
+	class LayerStack
 	{
 	public:
 		LayerStack();

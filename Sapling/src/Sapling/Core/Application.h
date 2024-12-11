@@ -11,7 +11,7 @@
 
 namespace Sapling
 {
-	class SAPLING_API Application
+	class Application
 	{
 	public:
 		Application();

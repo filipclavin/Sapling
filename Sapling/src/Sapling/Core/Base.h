@@ -1,11 +1,6 @@
 #pragma once
 
-#ifdef SAP_PLATFORM_WINDOWS
-	#ifdef SAP_BUILD_DLL
-		#define SAPLING_API __declspec(dllexport)
-	#else
-		#define SAPLING_API __declspec(dllimport)
-	#endif
+#ifdef WIN32
 #else
 	#error Sapling only supports Windows!
 #endif

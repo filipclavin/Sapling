@@ -1,0 +1,10 @@
+^C:\SRC\COPY_SAPLING\SAPLING\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/src/Copy_Sapling -BC:/src/Copy_Sapling --check-stamp-file C:/src/Copy_Sapling/Sapling/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

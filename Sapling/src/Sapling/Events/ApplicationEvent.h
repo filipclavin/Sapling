@@ -3,7 +3,7 @@
 #include "Event.h"
 
 namespace Sapling {
-	class SAPLING_API WindowResizeEvent : public Event
+	class WindowResizeEvent : public Event
 	{
 	public:
 		WindowResizeEvent(unsigned int width, unsigned int height)
@@ -26,7 +26,7 @@ namespace Sapling {
 		unsigned int _width, _height;
 	};
 
-	class SAPLING_API WindowCloseEvent : public Event
+	class WindowCloseEvent : public Event
 	{
 	public:
 		WindowCloseEvent() = default;
@@ -35,7 +35,7 @@ namespace Sapling {
 		EVENT_CLASS_CATEGORY(EventCategoryApplication)
 	};
 
-	class SAPLING_API AppTickEvent : public Event
+	class AppTickEvent : public Event
 	{
 	public:
 		AppTickEvent() = default;
@@ -44,7 +44,7 @@ namespace Sapling {
 		EVENT_CLASS_CATEGORY(EventCategoryApplication)
 	};
 
-	class SAPLING_API AppUpdateEvent : public Event
+	class AppUpdateEvent : public Event
 	{
 	public:
 		AppUpdateEvent() = default;
@@ -53,7 +53,7 @@ namespace Sapling {
 		EVENT_CLASS_CATEGORY(EventCategoryApplication)
 	};
 
-	class SAPLING_API AppRenderEvent : public Event
+	class AppRenderEvent : public Event
 	{
 	public:
 		AppRenderEvent() = default;

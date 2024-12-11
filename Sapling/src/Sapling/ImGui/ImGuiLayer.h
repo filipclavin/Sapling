@@ -6,7 +6,7 @@
 #include <Sapling/Events/KeyboardEvent.h>
 
 namespace Sapling {
-	class SAPLING_API ImGuiLayer : public Layer
+	class ImGuiLayer : public Layer
 	{
 	public:
 		ImGuiLayer();

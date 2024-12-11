@@ -5,7 +5,7 @@
 namespace Sapling
 {
 
-	class SAPLING_API Entity
+	class Entity
 	{
 	public:
 		Entity() = default;

@@ -1,0 +1,17 @@
+﻿  Microsoft (R) C/C++ Optimizing Compiler Version 19.42.34433 for x64
+  Copyright (C) Microsoft Corporation.  All rights reserved.
+  cl /c /IC:\src\Copy_Sapling\Sapling\src /IC:\src\Copy_Sapling\Sapling\vendor\GLFW\include /IC:\src\Copy_Sapling\Sapling\vendor\Glad\include /IC:\src\Copy_Sapling\Sapling\vendor\ImGui /IC:\src\Copy_Sapling\Sapling\vendor\glm /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D GLFW_INCLUDE_NONE /D "CMAKE_INTDIR=\"Debug\"" /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /std:c++17 /Yc"C:/src/Copy_Sapling/Sapling/CMakeFiles/Sapling.dir/Debug/cmake_pch.hxx" /Fp"C:/src/Copy_Sapling/Sapling/Sapling.dir/Debug/cmake_pch.pch" /Fo"Sapling.dir\Debug\\" /Fd"C:\src\Copy_Sapling\lib\Debug\Sapling.pdb" /external:W1 /Gd /TP /FIC:/src/Copy_Sapling/Sapling/CMakeFiles/Sapling.dir/Debug/cmake_pch.hxx /errorReport:prompt C:\src\Copy_Sapling\Sapling\CMakeFiles\Sapling.dir\cmake_pch.cxx
+  cmake_pch.cxx
+  Microsoft (R) C/C++ Optimizing Compiler Version 19.42.34433 for x64
+  Copyright (C) Microsoft Corporation.  All rights reserved.
+  cl /c /IC:\src\Copy_Sapling\Sapling\src /IC:\src\Copy_Sapling\Sapling\vendor\GLFW\include /IC:\src\Copy_Sapling\Sapling\vendor\Glad\include /IC:\src\Copy_Sapling\Sapling\vendor\ImGui /IC:\src\Copy_Sapling\Sapling\vendor\glm /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D GLFW_INCLUDE_NONE /D "CMAKE_INTDIR=\"Debug\"" /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /std:c++17 /Yu"C:/src/Copy_Sapling/Sapling/CMakeFiles/Sapling.dir/Debug/cmake_pch.hxx" /Fp"C:/src/Copy_Sapling/Sapling/Sapling.dir/Debug/cmake_pch.pch" /Fo"Sapling.dir\Debug\\" /Fd"C:\src\Copy_Sapling\lib\Debug\Sapling.pdb" /external:W1 /Gd /TP /FIC:/src/Copy_Sapling/Sapling/CMakeFiles/Sapling.dir/Debug/cmake_pch.hxx /errorReport:prompt C:\src\Copy_Sapling\Sapling\src\Platform\Windows\WindowsWindow.cpp C:\src\Copy_Sapling\Sapling\src\Sapling\Core\Application.cpp C:\src\Copy_Sapling\Sapling\src\Sapling\Core\Entity.cpp C:\src\Copy_Sapling\Sapling\src\Sapling\Core\Layer.cpp C:\src\Copy_Sapling\Sapling\src\Sapling\Core\LayerStack.cpp C:\src\Copy_Sapling\Sapling\src\Sapling\Core\Mesh.cpp C:\src\Copy_Sapling\Sapling\src\Sapling\ImGui\ImGuiLayer.cpp C:\src\Copy_Sapling\Sapling\src\sappch.cpp
+  WindowsWindow.cpp
+  Application.cpp
+  Entity.cpp
+  Layer.cpp
+  LayerStack.cpp
+  Mesh.cpp
+  ImGuiLayer.cpp
+  sappch.cpp
+  Generating Code...
+  Sapling.vcxproj -> C:\src\Copy_Sapling\lib\Debug\Sapling.lib

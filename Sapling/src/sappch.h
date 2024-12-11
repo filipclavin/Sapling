@@ -13,7 +13,7 @@
 #include <unordered_map>
 #include <unordered_set>
 
-#ifdef SAP_PLATFORM_WINDOWS
+#ifdef WIN32
 	#include <Windows.h>
 #endif
 

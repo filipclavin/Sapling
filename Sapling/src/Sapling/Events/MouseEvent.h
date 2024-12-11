@@ -4,7 +4,7 @@
 
 namespace Sapling
 {
-	class SAPLING_API MouseMovedEvent : public Event
+	class MouseMovedEvent : public Event
 	{
 	public:
 		MouseMovedEvent(float x, float y)
@@ -27,7 +27,7 @@ namespace Sapling
 		float _mouseX, _mouseY;
 	};
 
-	class SAPLING_API MouseScrolledEvent : public Event
+	class MouseScrolledEvent : public Event
 	{
 	public:
 		MouseScrolledEvent(float xOffset, float yOffset)
@@ -50,7 +50,7 @@ namespace Sapling
 		float _xOffset, _yOffset;
 	};
 
-	class SAPLING_API MouseButtonEvent : public Event
+	class MouseButtonEvent : public Event
 	{
 	public:
 		int GetMouseButton() const { return _button; }
@@ -64,7 +64,7 @@ namespace Sapling
 		int _button;
 	};
 
-	class SAPLING_API MouseButtonPressedEvent : public MouseButtonEvent
+	class MouseButtonPressedEvent : public MouseButtonEvent
 	{
 	public:
 		MouseButtonPressedEvent(int button)
@@ -80,7 +80,7 @@ namespace Sapling
 		EVENT_CLASS_TYPE(MouseButtonPressed)
 	};
 
-	class SAPLING_API MouseButtonReleasedEvent : public MouseButtonEvent
+	class MouseButtonReleasedEvent : public MouseButtonEvent
 	{
 	public:
 		MouseButtonReleasedEvent(int button)

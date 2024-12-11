@@ -4,7 +4,7 @@
 
 namespace Sapling
 {
-	class SAPLING_API KeyEvent : public Event
+	class KeyEvent : public Event
 	{
 	public:
 		unsigned int GetKeyCode() const { return _keyCode; }
@@ -20,7 +20,7 @@ namespace Sapling
 		unsigned int _scancode;
 	};
 
-	class SAPLING_API KeyPressedEvent : public KeyEvent
+	class KeyPressedEvent : public KeyEvent
 	{
 	public:
 		KeyPressedEvent(unsigned int keyCode, unsigned int scancode)
@@ -36,7 +36,7 @@ namespace Sapling
 		EVENT_CLASS_TYPE(KeyPressed)
 	};
 
-	class SAPLING_API KeyRepeatedEvent : public KeyEvent
+	class KeyRepeatedEvent : public KeyEvent
 	{
 	public:
 		KeyRepeatedEvent(unsigned int keyCode, unsigned int scancode)
@@ -52,7 +52,7 @@ namespace Sapling
 		EVENT_CLASS_TYPE(KeyRepeated)
 	};
 
-	class SAPLING_API KeyReleasedEvent : public KeyEvent
+	class KeyReleasedEvent : public KeyEvent
 	{
 	public:
 		KeyReleasedEvent(unsigned int keyCode, unsigned int scancode)
@@ -68,7 +68,7 @@ namespace Sapling
 		EVENT_CLASS_TYPE(KeyReleased)
 	};
 
-	class SAPLING_API CharEvent : public Event
+	class CharEvent : public Event
 	{
 	public:
 		unsigned int GetCodepoint() const { return _codepoint; }
@@ -82,7 +82,7 @@ namespace Sapling
 		unsigned int _codepoint;
 	};
 
-	class SAPLING_API CharTypedEvent : public CharEvent
+	class CharTypedEvent : public CharEvent
 	{
 	public:
 		CharTypedEvent(unsigned int codepoint)
@@ -98,7 +98,7 @@ namespace Sapling
 		EVENT_CLASS_TYPE(CharTyped)
 	};
 
-	class SAPLING_API CharTypedWithModsEvent : public CharEvent
+	class CharTypedWithModsEvent : public CharEvent
 	{
 	public:
 		CharTypedWithModsEvent(unsigned int codepoint, int mods)

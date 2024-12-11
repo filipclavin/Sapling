@@ -1,0 +1,55 @@
+﻿  Microsoft (R) C/C++ Optimizing Compiler Version 19.42.34433 for x64
+  Copyright (C) Microsoft Corporation.  All rights reserved.
+  cl /c /IC:\src\Copy_Sapling\Sapling\src /IC:\src\Copy_Sapling\Sapling\vendor\GLFW\include /IC:\src\Copy_Sapling\Sapling\vendor\Glad\include /IC:\src\Copy_Sapling\Sapling\vendor\ImGui /IC:\src\Copy_Sapling\Sapling\vendor\glm /IC:\src\Copy_Sapling\Sapling\vendor\ImGui\. /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D GLFW_INCLUDE_NONE /D SAP_PLATFORM_WINDOWS /D "CMAKE_INTDIR=\"Debug\"" /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /GR /std:c++17 /Yu"C:/src/Copy_Sapling/CMakeFiles/Sapling.dir/Debug/cmake_pch.hxx" /Fp"C:/src/Copy_Sapling/Sapling.dir/Debug/cmake_pch.pch" /Fo"Sapling.dir\Debug\\" /Fd"C:\src\Copy_Sapling\Debug\Sapling.pdb" /external:W1 /Gd /TP /FIC:/src/Copy_Sapling/CMakeFiles/Sapling.dir/Debug/cmake_pch.hxx /errorReport:prompt C:\src\Copy_Sapling\Sapling\src\Platform\Windows\WindowsWindow.cpp C:\src\Copy_Sapling\Sapling\src\Sapling\ImGui\ImGuiLayer.cpp C:\src\Copy_Sapling\Sapling\src\sappch.cpp
+  WindowsWindow.cpp
+C:\src\Copy_Sapling\Sapling\src\Platform\Windows\WindowsWindow.cpp(14,18): warning C4273: 'Sapling::Window::Create': inconsistent dll linkage
+  (compiling source file 'Sapling/src/Platform/Windows/WindowsWindow.cpp')
+      C:\src\Copy_Sapling\Sapling\src\Sapling\Core\Window.h(43,18):
+      see previous definition of 'Sapling::Window::Create'
+  
+  ImGuiLayer.cpp
+C:\src\Copy_Sapling\Sapling\src\Sapling\ImGui\ImGuiLayer.cpp(15,28): warning C4273: 's_instance': inconsistent dll linkage
+  (compiling source file 'Sapling/src/Sapling/ImGui/ImGuiLayer.cpp')
+      C:\src\Copy_Sapling\Sapling\src\Sapling\Core\Application.h(39,23):
+      see previous definition of 's_instance'
+  
+C:\src\Copy_Sapling\Sapling\src\Sapling\ImGui\ImGuiLayer.cpp(15,28): error C2491: 'Sapling::Application::s_instance': definition of dllimport static data member not allowed
+  (compiling source file 'Sapling/src/Sapling/ImGui/ImGuiLayer.cpp')
+  
+C:\src\Copy_Sapling\Sapling\src\Sapling\ImGui\ImGuiLayer.cpp(17,23): warning C4273: 'Sapling::ImGuiLayer::ImGuiLayer': inconsistent dll linkage
+  (compiling source file 'Sapling/src/Sapling/ImGui/ImGuiLayer.cpp')
+      C:\src\Copy_Sapling\Sapling\src\Sapling\ImGui\ImGuiLayer.h(12,3):
+      see previous definition of 'Sapling::ImGuiLayer::ImGuiLayer'
+  
+C:\src\Copy_Sapling\Sapling\src\Sapling\ImGui\ImGuiLayer.cpp(23,24): warning C4273: 'Sapling::ImGuiLayer::~ImGuiLayer': inconsistent dll linkage
+  (compiling source file 'Sapling/src/Sapling/ImGui/ImGuiLayer.cpp')
+      C:\src\Copy_Sapling\Sapling\src\Sapling\ImGui\ImGuiLayer.h(13,4):
+      see previous definition of 'Sapling::ImGuiLayer::~ImGuiLayer'
+  
+C:\src\Copy_Sapling\Sapling\src\Sapling\ImGui\ImGuiLayer.cpp(28,19): warning C4273: 'Sapling::ImGuiLayer::OnAttach': inconsistent dll linkage
+  (compiling source file 'Sapling/src/Sapling/ImGui/ImGuiLayer.cpp')
+      C:\src\Copy_Sapling\Sapling\src\Sapling\ImGui\ImGuiLayer.h(15,16):
+      see previous definition of 'Sapling::ImGuiLayer::OnAttach'
+  
+C:\src\Copy_Sapling\Sapling\src\Sapling\ImGui\ImGuiLayer.cpp(53,19): warning C4273: 'Sapling::ImGuiLayer::OnDetach': inconsistent dll linkage
+  (compiling source file 'Sapling/src/Sapling/ImGui/ImGuiLayer.cpp')
+      C:\src\Copy_Sapling\Sapling\src\Sapling\ImGui\ImGuiLayer.h(16,16):
+      see previous definition of 'Sapling::ImGuiLayer::OnDetach'
+  
+C:\src\Copy_Sapling\Sapling\src\Sapling\ImGui\ImGuiLayer.cpp(60,19): warning C4273: 'Sapling::ImGuiLayer::OnImGuiRender': inconsistent dll linkage
+  (compiling source file 'Sapling/src/Sapling/ImGui/ImGuiLayer.cpp')
+      C:\src\Copy_Sapling\Sapling\src\Sapling\ImGui\ImGuiLayer.h(17,16):
+      see previous definition of 'Sapling::ImGuiLayer::OnImGuiRender'
+  
+C:\src\Copy_Sapling\Sapling\src\Sapling\ImGui\ImGuiLayer.cpp(66,19): warning C4273: 'Sapling::ImGuiLayer::Begin': inconsistent dll linkage
+  (compiling source file 'Sapling/src/Sapling/ImGui/ImGuiLayer.cpp')
+      C:\src\Copy_Sapling\Sapling\src\Sapling\ImGui\ImGuiLayer.h(19,8):
+      see previous definition of 'Sapling::ImGuiLayer::Begin'
+  
+C:\src\Copy_Sapling\Sapling\src\Sapling\ImGui\ImGuiLayer.cpp(73,19): warning C4273: 'Sapling::ImGuiLayer::End': inconsistent dll linkage
+  (compiling source file 'Sapling/src/Sapling/ImGui/ImGuiLayer.cpp')
+      C:\src\Copy_Sapling\Sapling\src\Sapling\ImGui\ImGuiLayer.h(20,8):
+      see previous definition of 'Sapling::ImGuiLayer::End'
+  
+  sappch.cpp
+  Generating Code...

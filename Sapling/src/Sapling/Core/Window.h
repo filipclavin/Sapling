@@ -20,7 +20,7 @@ namespace Sapling
 	};
 
 	// Interface representing a desktop system based Window
-	class SAPLING_API Window
+	class Window
 	{
 	public:
 		using EventCallbackFn = std::function<void(Event&)>;

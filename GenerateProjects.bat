@@ -1,2 +1,2 @@
-call premake5 vs2022
+cmake -S . -B . -G "Visual Studio 17 2022"
 PAUSE

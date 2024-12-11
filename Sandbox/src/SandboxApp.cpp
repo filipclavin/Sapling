@@ -1,5 +1,6 @@
 #include <Sapling.h>
 #include <imgui.h>
+#include <Sapling/Core/Mesh.h>
 
 class ExampleLayer : public Sapling::Layer
 {
@@ -34,6 +35,8 @@ public:
 	{
 		std::cout << "Sandbox created" << std::endl;
 		PushLayer(new ExampleLayer());
+
+		Sapling::Mesh cube = Sapling::Mesh::Cube();
 	}
 
 	~Sandbox()

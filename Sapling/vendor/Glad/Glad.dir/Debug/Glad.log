@@ -1,0 +1,6 @@
+﻿  Building Custom Rule C:/src/Copy_Sapling/Sapling/vendor/Glad/CMakeLists.txt
+  Microsoft (R) C/C++ Optimizing Compiler Version 19.42.34433 for x64
+  Copyright (C) Microsoft Corporation.  All rights reserved.
+  cl /c /IC:\src\Copy_Sapling\Sapling\vendor\Glad\include /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\"Debug\"" /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Glad.dir\Debug\\" /Fd"C:\src\Copy_Sapling\lib\Debug\Glad.pdb" /external:W1 /Gd /TC /errorReport:prompt C:\src\Copy_Sapling\Sapling\vendor\Glad\src\gl.c
+  gl.c
+  Glad.vcxproj -> C:\src\Copy_Sapling\lib\Debug\Glad.lib

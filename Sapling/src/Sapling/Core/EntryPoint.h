@@ -1,6 +1,6 @@
 #pragma once
 
-#ifdef SAP_PLATFORM_WINDOWS
+#ifdef WIN32
 
 extern Sapling::Application* Sapling::CreateApplication();
 
