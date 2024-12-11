@@ -1,7 +1,7 @@
-prefix=C:/Program Files (x86)/Sapling
+prefix=C:/Program Files/Sapling
 exec_prefix=${prefix}
-includedir=C:/Program Files (x86)/Sapling/include
-libdir=C:/Program Files (x86)/Sapling/lib
+includedir=C:/Program Files/Sapling/include
+libdir=C:/Program Files/Sapling/lib
 
 Name: GLFW
 Description: A multi-platform library for OpenGL, window and input

@@ -1,9 +1,9 @@
 
-if (NOT EXISTS "C:/src/Copy_Sapling/Sapling/vendor/GLFW/install_manifest.txt")
-    message(FATAL_ERROR "Cannot find install manifest: \"C:/src/Copy_Sapling/Sapling/vendor/GLFW/install_manifest.txt\"")
+if (NOT EXISTS "C:/src/Sapling/Sapling/vendor/GLFW/install_manifest.txt")
+    message(FATAL_ERROR "Cannot find install manifest: \"C:/src/Sapling/Sapling/vendor/GLFW/install_manifest.txt\"")
 endif()
 
-file(READ "C:/src/Copy_Sapling/Sapling/vendor/GLFW/install_manifest.txt" files)
+file(READ "C:/src/Sapling/Sapling/vendor/GLFW/install_manifest.txt" files)
 string(REGEX REPLACE "\n" ";" files "${files}")
 
 foreach (file ${files})
