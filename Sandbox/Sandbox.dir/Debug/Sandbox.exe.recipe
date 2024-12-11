@@ -2,10 +2,10 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>C:\src\Copy_Sapling\x64\Debug\ZERO_CHECK</FullPath>
+      <FullPath>C:\src\Sapling\x64\Debug\ZERO_CHECK</FullPath>
     </ProjectOutput>
     <ProjectOutput>
-      <FullPath>C:\src\Copy_Sapling\bin\Debug\Sandbox.exe</FullPath>
+      <FullPath>C:\src\Sapling\bin\Debug\Sandbox.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />

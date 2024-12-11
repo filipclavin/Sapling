@@ -1,6 +1,6 @@
-^C:\SRC\COPY_SAPLING\SANDBOX\CMAKELISTS.TXT
+^C:\SRC\SAPLING\SANDBOX\CMAKELISTS.TXT
 setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -SC:/src/Copy_Sapling -BC:/src/Copy_Sapling --check-stamp-file C:/src/Copy_Sapling/Sandbox/CMakeFiles/generate.stamp
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/src/Sapling -BC:/src/Sapling --check-stamp-file C:/src/Sapling/Sandbox/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone

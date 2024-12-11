@@ -1,0 +1,10 @@
+[submodule "Sapling/vendor/GLFW/repo"]
+	path = Sapling/vendor/GLFW/repo
+	url = https://github.com/glfw/glfw
+[submodule "Sapling/vendor/ImGui/repo"]
+	path = Sapling/vendor/ImGui/repo
+	url = https://github.com/ocornut/imgui
+	branch = docking
+[submodule "Sapling/vendor/glm/repo"]
+	path = Sapling/vendor/glm/repo
+	url = https://github.com/g-truc/glm
