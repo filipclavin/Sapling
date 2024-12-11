@@ -1,9 +1,0 @@
-C:\src\Sapling\Sapling\CMakeFiles\Sapling.dir\cmake_pch.cxx;C:\src\Sapling\Sapling\Sapling.dir\Debug\cmake_pch.obj
-C:\src\Sapling\Sapling\src\Platform\Windows\WindowsWindow.cpp;C:\src\Sapling\Sapling\Sapling.dir\Debug\WindowsWindow.obj
-C:\src\Sapling\Sapling\src\Sapling\Core\Application.cpp;C:\src\Sapling\Sapling\Sapling.dir\Debug\Application.obj
-C:\src\Sapling\Sapling\src\Sapling\Core\Entity.cpp;C:\src\Sapling\Sapling\Sapling.dir\Debug\Entity.obj
-C:\src\Sapling\Sapling\src\Sapling\Core\Layer.cpp;C:\src\Sapling\Sapling\Sapling.dir\Debug\Layer.obj
-C:\src\Sapling\Sapling\src\Sapling\Core\LayerStack.cpp;C:\src\Sapling\Sapling\Sapling.dir\Debug\LayerStack.obj
-C:\src\Sapling\Sapling\src\Sapling\Core\Mesh.cpp;C:\src\Sapling\Sapling\Sapling.dir\Debug\Mesh.obj
-C:\src\Sapling\Sapling\src\Sapling\ImGui\ImGuiLayer.cpp;C:\src\Sapling\Sapling\Sapling.dir\Debug\ImGuiLayer.obj
-C:\src\Sapling\Sapling\src\sappch.cpp;C:\src\Sapling\Sapling\Sapling.dir\Debug\sappch.obj

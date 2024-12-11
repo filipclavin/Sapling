@@ -1,7 +1,7 @@
 # Directories
 .vs/
 bin/
-bin-int/
+lib/
 
 # Files
 *.user
@@ -23,6 +23,7 @@ compile_commands.json
 CTestTestfile.cmake
 _deps
 CMakeUserPresets.json
+*.dir/
 
 # Doxygen
 CMakeDoxyfile.in
