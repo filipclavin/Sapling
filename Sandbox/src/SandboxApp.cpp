@@ -1,6 +1,7 @@
 #include <Sapling.h>
-#include <imgui.h>
 #include <Sapling/Core/Mesh.h>
+
+#include <imgui.h>
 
 class ExampleLayer : public Sapling::Layer
 {
@@ -12,12 +13,17 @@ public:
 
 	void OnUpdate() override
 	{
-		//printf("ExampleLayer::Update\n");
+
 	}
 
 	void OnEvent(Sapling::Event& event) override
 	{
-		std::cout << "ExampleLayer::" << event << std::endl;
+		if (event.GetEventType() == Sapling::EventType::CharTyped)
+		{
+			Sapling::CharTypedEvent& e = (Sapling::CharTypedEvent&)event;
+			
+			std::cout << e << std::endl;
+		}
 	}
 
 	void OnImGuiRender() override

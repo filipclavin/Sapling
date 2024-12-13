@@ -1,12 +1,9 @@
 #pragma once
 
-#include "Sapling/Core/Base.h"
-
 #include "Sapling/Core/Window.h"
 #include "Sapling/Core/LayerStack.h"
 #include "Sapling/Events/Event.h"
 #include "Sapling/Events/ApplicationEvent.h"
-
 #include "Sapling/ImGui/ImGuiLayer.h"
 
 namespace Sapling

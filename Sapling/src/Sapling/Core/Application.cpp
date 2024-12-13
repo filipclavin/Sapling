@@ -1,7 +1,11 @@
 #include "sappch.h"
+
 #include "Application.h"
+#include "Sapling/Core/Input.h"
 
 #include <glad/gl.h>
+#include <Platform/Windows/WindowsWindow.h>
+#include <chrono>
 
 namespace Sapling
 {
@@ -32,10 +36,14 @@ namespace Sapling
 			glClearColor(0, 0, 1, 1);
 			glClear(GL_COLOR_BUFFER_BIT);
 
-			_imguiLayer->Begin();
 			for (Layer* layer : _layerStack)
 			{
 				layer->OnUpdate();
+			}
+
+			_imguiLayer->Begin();
+			for (Layer* layer : _layerStack)
+			{
 				layer->OnImGuiRender();
 			}
 			_imguiLayer->End();
@@ -49,7 +57,7 @@ namespace Sapling
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(Application::OnWindowClose));
 
-		std::cout << e << std::endl;
+		// std::cout << e << std::endl;
 
 		for (auto it = _layerStack.end(); it != _layerStack.begin();)
 		{

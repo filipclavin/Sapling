@@ -1,6 +1,7 @@
 #pragma once
 
 #include "sappch.h"
+
 #include "Sapling/Core/Base.h"
 
 namespace Sapling
@@ -14,7 +15,7 @@ namespace Sapling
 		WindowClose, WindowResize, WindowFocus, WindowLostFocus, WindowMoved,
 		AppTick, AppUpdate, AppRender,
 		KeyPressed, KeyRepeated, KeyReleased,
-		CharTyped, CharTypedWithMods,
+		CharTyped,
 		MouseButtonPressed, MouseButtonReleased, MouseMoved, MouseScrolled
 	};
 

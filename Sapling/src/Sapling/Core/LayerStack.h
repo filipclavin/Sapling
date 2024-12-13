@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Sapling/Core/Base.h"
+
 #include "Sapling/Core/Layer.h"
 
 #include <vector>

@@ -12,24 +12,23 @@ namespace Sapling
 		WindowsWindow(const WindowProps& props);
 		virtual ~WindowsWindow();
 
-		void OnUpdate() override;
+		virtual void OnUpdate() override;
 
-		unsigned int GetWidth() const override { return _data.Width; }
-		unsigned int GetHeight() const override { return _data.Height; }
+		virtual unsigned int GetWidth() const override { return _data.Width; }
+		virtual unsigned int GetHeight() const override { return _data.Height; }
 		
 		// Window attributes
-		void SetEventCallback(const EventCallbackFn& callback) override { _data.EventCallback = callback; }
-		void SetVSync(bool enabled) override;
-		bool IsVSync() const override;
+		virtual void SetEventCallback(const EventCallbackFn& callback) override { _data.EventCallback = callback; }
+		virtual void SetVSync(bool enabled) override;
+		virtual bool IsVSync() const override { return _data.VSync; };
 
-		inline virtual void* GetNativeWindow() const { return _window; }
+		inline virtual void* GetNativeWindow() const override { return _nativeWindow; }
 
 	private:
-		virtual void Init(const WindowProps& props);
 		virtual void Shutdown();
 
 	private:
-		GLFWwindow* _window;
+		GLFWwindow* _nativeWindow = nullptr;
 
 		struct WindowData
 		{

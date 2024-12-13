@@ -1,0 +1,49 @@
+#include "sappch.h"
+#include "GLFWMouseButtonCodes.h"
+
+#include "Sapling/Core/MouseButtonCodes.h"
+
+#include <GLFW/glfw3.h>
+
+namespace Sapling
+{
+	std::unordered_map<MOUSE_BTN, int> s_MouseButtonMap = {
+		{ MOUSE_BTN::MOUSE_1, GLFW_MOUSE_BUTTON_1 },
+		{ MOUSE_BTN::MOUSE_2, GLFW_MOUSE_BUTTON_2 },
+		{ MOUSE_BTN::MOUSE_3, GLFW_MOUSE_BUTTON_3 },
+		{ MOUSE_BTN::MOUSE_4, GLFW_MOUSE_BUTTON_4 },
+		{ MOUSE_BTN::MOUSE_5, GLFW_MOUSE_BUTTON_5 },
+		{ MOUSE_BTN::MOUSE_6, GLFW_MOUSE_BUTTON_6 },
+		{ MOUSE_BTN::MOUSE_7, GLFW_MOUSE_BUTTON_7 },
+		{ MOUSE_BTN::MOUSE_8, GLFW_MOUSE_BUTTON_8 },
+		{ MOUSE_BTN::MOUSE_LAST, GLFW_MOUSE_BUTTON_LAST },
+		{ MOUSE_BTN::MOUSE_LEFT, GLFW_MOUSE_BUTTON_LEFT },
+		{ MOUSE_BTN::MOUSE_RIGHT, GLFW_MOUSE_BUTTON_RIGHT },
+		{ MOUSE_BTN::MOUSE_MIDDLE, GLFW_MOUSE_BUTTON_MIDDLE }
+	};
+
+	std::unordered_map<int, MOUSE_BTN> s_MouseButtonMapReverse = {
+		{ GLFW_MOUSE_BUTTON_1, MOUSE_BTN::MOUSE_1 },
+		{ GLFW_MOUSE_BUTTON_2, MOUSE_BTN::MOUSE_2 },
+		{ GLFW_MOUSE_BUTTON_3, MOUSE_BTN::MOUSE_3 },
+		{ GLFW_MOUSE_BUTTON_4, MOUSE_BTN::MOUSE_4 },
+		{ GLFW_MOUSE_BUTTON_5, MOUSE_BTN::MOUSE_5 },
+		{ GLFW_MOUSE_BUTTON_6, MOUSE_BTN::MOUSE_6 },
+		{ GLFW_MOUSE_BUTTON_7, MOUSE_BTN::MOUSE_7 },
+		{ GLFW_MOUSE_BUTTON_8, MOUSE_BTN::MOUSE_8 },
+		{ GLFW_MOUSE_BUTTON_LAST, MOUSE_BTN::MOUSE_LAST },
+		{ GLFW_MOUSE_BUTTON_LEFT, MOUSE_BTN::MOUSE_LEFT },
+		{ GLFW_MOUSE_BUTTON_RIGHT, MOUSE_BTN::MOUSE_RIGHT },
+		{ GLFW_MOUSE_BUTTON_MIDDLE, MOUSE_BTN::MOUSE_MIDDLE }
+	};
+
+	int GetGlfwMouseButtonBySaplingMouseButton(MOUSE_BTN button)
+	{
+		return s_MouseButtonMap[button];
+	}
+
+	MOUSE_BTN GetSaplingMouseButtonByGlfwMouseButton(int button)
+	{
+		return s_MouseButtonMapReverse[button];
+	}
+}

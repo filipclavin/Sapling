@@ -2,7 +2,7 @@
 
 #include "sappch.h"
 
-#include "Sapling/Core/Base.h"
+
 #include "Sapling/Events/Event.h"
 
 namespace Sapling
@@ -39,7 +39,6 @@ namespace Sapling
 
 		virtual void* GetNativeWindow() const = 0;
 
-		// Implemented per platform
 		static Window* Create(const WindowProps& props = WindowProps());
 	};
 }

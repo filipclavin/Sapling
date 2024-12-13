@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Sapling/Core/Base.h"
+
 #include "Sapling/Events/Event.h"
 
 namespace Sapling

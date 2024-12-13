@@ -2,7 +2,7 @@
 project(Sapling)
 
 # Define the sapling static library
-file(GLOB_RECURSE SaplingSources RELATIVE ${PROJECT_SOURCE_DIR}
+file(GLOB_RECURSE SaplingSources CONFIGURE_DEPENDS RELATIVE ${PROJECT_SOURCE_DIR}
 src/**.cpp
 src/**.h
 )
@@ -22,12 +22,14 @@ target_compile_definitions(Sapling PRIVATE WIN32)
 endif()
 
 # Include directories for Sapling
-target_include_directories(Sapling PRIVATE
-${IncludeDir_Sapling}
-${IncludeDir_GLFW}
-${IncludeDir_Glad}
-${IncludeDir_ImGui}
-${IncludeDir_glm}
+target_include_directories(Sapling
+  PRIVATE
+    ${IncludeDir_Sapling}
+    ${IncludeDir_GLFW}
+    ${IncludeDir_Glad}
+  PUBLIC
+    ${IncludeDir_ImGui}
+    ${IncludeDir_glm}
 )
 
 target_link_libraries(Sapling PRIVATE

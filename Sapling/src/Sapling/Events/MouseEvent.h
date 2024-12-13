@@ -1,22 +1,24 @@
 #pragma once
 
 #include "Event.h"
+#include "Sapling/Core/MouseButtonCodes.h"
+
+#include <glm/vec2.hpp>
 
 namespace Sapling
 {
 	class MouseMovedEvent : public Event
 	{
 	public:
-		MouseMovedEvent(float x, float y)
-			: _mouseX(x), _mouseY(y) {}
+		MouseMovedEvent(glm::vec2 mousePos)
+			: _mousePos(mousePos) {}
 
-		float GetX() const { return _mouseX; }
-		float GetY() const { return _mouseY; }
+		glm::vec2 GetPosition() const { return _mousePos; }
 
 		std::string ToString() const override
 		{
 			std::stringstream ss;
-			ss << "MouseMovedEvent: " << _mouseX << ", " << _mouseY;
+			ss << "MouseMovedEvent: " << _mousePos.x << ", " << _mousePos.y;
 			return ss.str();
 		}
 
@@ -24,22 +26,21 @@ namespace Sapling
 		EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
 
 	private:
-		float _mouseX, _mouseY;
+		glm::vec2 _mousePos;
 	};
 
 	class MouseScrolledEvent : public Event
 	{
 	public:
-		MouseScrolledEvent(float xOffset, float yOffset)
-			: _xOffset(xOffset), _yOffset(yOffset) {}
+		MouseScrolledEvent(glm::vec2 offset)
+			: _offset(offset) {}
 
-		float GetXOffset() const { return _xOffset; }
-		float GetYOffset() const { return _yOffset; }
+		glm::vec2 GetOffset() const { return _offset; }
 
 		std::string ToString() const override
 		{
 			std::stringstream ss;
-			ss << "MouseScrolledEvent: " << _xOffset << ", " << _yOffset;
+			ss << "MouseScrolledEvent: " << _offset.x << ", " << _offset.y;
 			return ss.str();
 		}
 
@@ -47,33 +48,33 @@ namespace Sapling
 		EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
 
 	private:
-		float _xOffset, _yOffset;
+		glm::vec2 _offset;
 	};
 
 	class MouseButtonEvent : public Event
 	{
 	public:
-		int GetMouseButton() const { return _button; }
+		MOUSE_BTN GetMouseButton() const { return _button; }
 
 		EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
 
 	protected:
-		MouseButtonEvent(int button)
+		MouseButtonEvent(MOUSE_BTN button)
 			: _button(button) {}
 
-		int _button;
+		MOUSE_BTN _button;
 	};
 
 	class MouseButtonPressedEvent : public MouseButtonEvent
 	{
 	public:
-		MouseButtonPressedEvent(int button)
+		MouseButtonPressedEvent(MOUSE_BTN button)
 			: MouseButtonEvent(button) {}
 
 		std::string ToString() const override
 		{
 			std::stringstream ss;
-			ss << "MouseButtonPressedEvent: " << _button;
+			ss << "MouseButtonPressedEvent: " << GetMouseButtonName(_button);
 			return ss.str();
 		}
 
@@ -83,13 +84,13 @@ namespace Sapling
 	class MouseButtonReleasedEvent : public MouseButtonEvent
 	{
 	public:
-		MouseButtonReleasedEvent(int button)
+		MouseButtonReleasedEvent(MOUSE_BTN button)
 			: MouseButtonEvent(button) {}
 
 		std::string ToString() const override
 		{
 			std::stringstream ss;
-			ss << "MouseButtonReleasedEvent: " << _button;
+			ss << "MouseButtonReleasedEvent: " << GetMouseButtonName(_button);
 			return ss.str();
 		}
 
