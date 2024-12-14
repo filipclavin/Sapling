@@ -2,10 +2,12 @@
 
 #include "Sapling/Core/Window.h"
 
-#include <GLFW/glfw3.h>
+struct GLFWwindow;
 
 namespace Sapling
 {
+	class RenderingContext;
+
 	class WindowsWindow : public Window
 	{
 	public:
@@ -26,6 +28,7 @@ namespace Sapling
 
 	private:
 		virtual void Shutdown();
+		RenderingContext* _context;
 
 	private:
 		GLFWwindow* _nativeWindow = nullptr;

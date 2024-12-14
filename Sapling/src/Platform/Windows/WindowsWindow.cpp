@@ -4,10 +4,12 @@
 #include <Sapling/Events/ApplicationEvent.h>
 #include <Sapling/Events/MouseEvent.h>
 #include <Sapling/Events/KeyboardEvent.h>
+
 #include <Platform/GLFW/GLFWKeyCodes.h>
 #include <Platform/GLFW/GLFWMouseButtonCodes.h>
+#include <Platform/OpenGL/OpenGLContext.h>
 
-#include <glad/gl.h>
+#include <GLFW/glfw3.h>
 
 namespace Sapling
 {
@@ -28,7 +30,7 @@ namespace Sapling
 		_data.Title = props.Title;
 		_data.Width = props.Width;
 		_data.Height = props.Height;
-		
+
 		if (!s_glfwInitialized)
 		{
 			// TODO: glfwTerminate on system shutdown
@@ -44,15 +46,9 @@ namespace Sapling
 
 			s_glfwInitialized = true;
 		}
-		_nativeWindow = glfwCreateWindow((int)props.Width, (int)props.Height, _data.Title.c_str(), nullptr, nullptr);
-		glfwMakeContextCurrent(_nativeWindow);
 
-		int glVersion = gladLoadGL(glfwGetProcAddress);
-
-		if (glVersion == 0)
-		{
-			throw std::runtime_error("Could not initialize GLAD!");
-		}
+		_context = new OpenGLContext((int)props.Width, (int)props.Height, _data.Title.c_str(), nullptr, nullptr, _nativeWindow);
+		_context->Init();
 
 		// Used for event callbacks (pushes the window data to the callback)
 		glfwSetWindowUserPointer(_nativeWindow, &_data);
@@ -156,15 +152,12 @@ namespace Sapling
 	void WindowsWindow::OnUpdate()
 	{
 		glfwPollEvents();
-		glfwSwapBuffers(_nativeWindow);
+		_context->SwapBuffers();
 	}
 
 	void WindowsWindow::SetVSync(bool enabled)
 	{
-		if (enabled)
-			glfwSwapInterval(1);
-		else
-			glfwSwapInterval(0);
+		_context->SetVSync(enabled);
 		_data.VSync = enabled;
 	}
 
