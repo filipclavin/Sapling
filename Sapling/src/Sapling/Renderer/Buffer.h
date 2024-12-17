@@ -100,7 +100,7 @@ namespace Sapling
 	class VertexBuffer
 	{
 	public:
-		static VertexBuffer* Create(float* vertices, size_t size);
+		static std::shared_ptr<VertexBuffer> Create(float* vertices, size_t size);
 
 		~VertexBuffer() {}
 
@@ -114,7 +114,7 @@ namespace Sapling
 	class IndexBuffer
 	{
 	public:
-		static IndexBuffer* Create(unsigned int* indices, size_t count);
+		static std::shared_ptr<IndexBuffer> Create(unsigned int* indices, size_t count);
 
 		~IndexBuffer() {}
 

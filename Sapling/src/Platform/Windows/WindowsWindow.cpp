@@ -10,6 +10,7 @@
 #include <Platform/OpenGL/OpenGLContext.h>
 
 #include <GLFW/glfw3.h>
+#include <Sapling/Renderer/RendererAPI.h>
 
 namespace Sapling
 {
@@ -47,7 +48,24 @@ namespace Sapling
 			s_glfwInitialized = true;
 		}
 
-		_context = new OpenGLContext((int)props.Width, (int)props.Height, _data.Title.c_str(), nullptr, nullptr, _nativeWindow);
+		switch (RendererAPI::GetAPI())
+		{
+			case RendererAPI::API::None:
+				throw std::runtime_error("RendererAPI::None is not supported!");
+
+			case RendererAPI::API::OpenGL:
+				_context = new OpenGLContext((int)props.Width,
+					(int)props.Height,
+					_data.Title.c_str(),
+					nullptr,
+					nullptr,
+					_nativeWindow);
+				break;
+
+			default:
+				throw std::runtime_error("Unknown RendererAPI!");
+		}
+
 		_context->Init();
 
 		// Used for event callbacks (pushes the window data to the callback)

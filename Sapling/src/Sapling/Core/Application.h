@@ -6,10 +6,6 @@
 #include "Sapling/Events/ApplicationEvent.h"
 #include "Sapling/ImGui/ImGuiLayer.h"
 
-#include "Sapling/Renderer/Shader.h"
-#include <Sapling/Renderer/Buffer.h>
-#include <Sapling/Renderer/VertexArray.h>
-
 namespace Sapling
 {
 	class Application
@@ -36,11 +32,6 @@ namespace Sapling
 		LayerStack _layerStack;
 
 		bool _running = true;
-
-		std::unique_ptr<VertexArray> _vertexArray;
-		std::shared_ptr<VertexBuffer> _vertexBuffer;
-		std::shared_ptr<IndexBuffer> _indexBuffer;
-		std::unique_ptr<Shader> _shader;
 
 		static Application* s_instance;
 	};

@@ -7,14 +7,14 @@
 
 namespace Sapling
 {
-	VertexArray* VertexArray::Create()
+	std::shared_ptr<VertexArray> Sapling::VertexArray::Create()
 	{
 		switch (Renderer::GetAPI())
 		{
-		case RendererAPI::None:
+		case RendererAPI::API::None:
 			throw std::runtime_error("RendererAPI::None is not supported!");
-		case RendererAPI::OpenGL:
-			return new OpenGLVertexArray();
+		case RendererAPI::API::OpenGL:
+			return std::make_shared<OpenGLVertexArray>();
 		}
 		throw std::runtime_error("Unknown RendererAPI!");
 	}

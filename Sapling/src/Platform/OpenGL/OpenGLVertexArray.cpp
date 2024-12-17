@@ -55,6 +55,7 @@ namespace Sapling
 
 		glBindVertexArray(_rendererID);
 		vertexBuffer->Bind();
+
 		const BufferLayout& layout = vertexBuffer->GetLayout();
 		for (const BufferElement& element : layout)
 		{
@@ -65,8 +66,10 @@ namespace Sapling
 				element.Normalized ? GL_TRUE : GL_FALSE,
 				layout.GetStride(),
 				(const void*)element.Offset);
+
 			_vertexBufferIndex++;
 		}
+
 		_vertexBuffers.push_back(vertexBuffer);
 	}
 
@@ -74,6 +77,7 @@ namespace Sapling
 	{
 		glBindVertexArray(_rendererID);
 		indexBuffer->Bind();
+
 		_indexBuffer = indexBuffer;
 	}
 }
