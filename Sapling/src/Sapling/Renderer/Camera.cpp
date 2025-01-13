@@ -5,8 +5,16 @@
 
 namespace Sapling
 {
-	Camera::Camera(const glm::mat4& projectionMatrix, const glm::mat4& viewMatrix, float aspectRatio, glm::vec3 position, glm::quat rotation)
-		: _projectionMatrix(projectionMatrix), _viewMatrix(viewMatrix), _aspectRatio(aspectRatio), _viewProjectionMatrix(projectionMatrix * viewMatrix)
+	// ----------------- Camera -----------------
+
+	Camera::Camera(const glm::mat4& projectionMatrix,
+				   const glm::mat4& viewMatrix,
+				   float aspectRatio,
+				   float nearClip,
+				   float farClip,
+				   const glm::vec3& position,
+				   const glm::quat& rotation)
+		: _projectionMatrix(projectionMatrix), _viewMatrix(viewMatrix), _aspectRatio(aspectRatio), _nearClip(nearClip), _farClip(farClip), _viewProjectionMatrix(projectionMatrix * viewMatrix)
 	{
 		SetPosition(position);
 		SetRotation(rotation);
@@ -15,77 +23,131 @@ namespace Sapling
 	void Camera::SetProjectionMatrix(const glm::mat4& projectionMatrix)
 	{
 		_projectionMatrix = projectionMatrix;
-		_viewProjectionMatrix = _projectionMatrix * _viewMatrix;
+		UpdateViewProjectionMatrix();
 	}
 
 	void Camera::SetViewMatrix(const glm::mat4& viewMatrix)
 	{
 		_viewMatrix = viewMatrix;
-		_viewProjectionMatrix = _projectionMatrix * _viewMatrix;
+		UpdateViewProjectionMatrix();
 	}
 
 	void Camera::SetPosition(const glm::vec3& position)
 	{
 		_position = position;
-		RecalculateViewMatrix();
+		UpdateViewMatrix();
 	}
 
 	void Camera::SetRotation(const glm::quat& rotation)
 	{
 		_rotation = rotation;
-		RecalculateViewMatrix();
+		UpdateViewMatrix();
 	}
 
-	void Camera::RecalculateViewMatrix()
+	void Sapling::Camera::UpdateViewMatrix(bool skipViewProjectionMatrix)
 	{
-		glm::mat4 transform = glm::translate(glm::mat4(1.0f), _position) *
-			glm::mat4_cast(_rotation);
+		glm::mat4 transform = glm::translate(glm::mat4(1.0f), _position) * glm::mat4_cast(_rotation);
 		_viewMatrix = glm::inverse(transform);
-		_viewProjectionMatrix = _projectionMatrix * _viewMatrix;
+
+		if (skipViewProjectionMatrix) return;
+
+		UpdateViewProjectionMatrix();
 	}
 
-	void OrthographicCamera::SetOrthoProjection(float aspectRatio, float zoomLevel)
+	void Camera::UpdateViewProjectionMatrix()
 	{
-		SetProjectionMatrix(glm::ortho(-aspectRatio * zoomLevel, aspectRatio* zoomLevel, -zoomLevel, zoomLevel));
+		switch (RendererAPI::GetAPI())
+		{
+			case RendererAPI::API::None:
+				throw std::runtime_error("RendererAPI::None is currently not supported");
+				break;
+			case RendererAPI::API::OpenGL:
+				_viewProjectionMatrix = _projectionMatrix * _viewMatrix;
+				break;
+		}
+	}
+
+	// ----------------- OrthographicCamera -----------------
+
+	void Sapling::OrthographicCamera::UpdateProjectionMatrix()
+	{
+		SetProjectionMatrix(glm::ortho(-_aspectRatio * _zoomLevel, _aspectRatio * _zoomLevel, -_zoomLevel, _zoomLevel, _nearClip, _farClip));
+	}
+
+	void OrthographicCamera::CopySharedProperties(const Camera& other)
+	{
+		_position = other.GetPosition();
+		_rotation = other.GetRotation();
+		_nearClip = other.GetNearClip();
+		_farClip = other.GetFarClip();
+		_aspectRatio = other.GetAspectRatio();
+		UpdateViewMatrix(true);
+		UpdateProjectionMatrix();
+	}
+
+	void OrthographicCamera::SetNearClip(float nearClip)
+	{
+		_nearClip = nearClip;
+		UpdateProjectionMatrix();
+	}
+
+	void OrthographicCamera::SetFarClip(float farClip)
+	{
+		_farClip = farClip;
+		UpdateProjectionMatrix();
 	}
 
 	void OrthographicCamera::SetAspectRatio(float aspectRatio)
 	{
-		SetProjectionMatrix(glm::ortho(-aspectRatio * _zoomLevel, aspectRatio * _zoomLevel, -_zoomLevel, _zoomLevel));
+		_aspectRatio = aspectRatio;
+		UpdateProjectionMatrix();
 	}
 
 	void OrthographicCamera::SetZoomLevel(float zoomLevel)
 	{
 		_zoomLevel = zoomLevel;
-		SetProjectionMatrix(glm::ortho(-_aspectRatio * zoomLevel, _aspectRatio * zoomLevel, -zoomLevel, zoomLevel));
+		UpdateProjectionMatrix();
 	}
 
-	void PerspectiveCamera::SetPerspectiveProjection(float fov, float aspectRatio, float nearClip, float farClip)
+	// ----------------- PerspectiveCamera -----------------
+
+	void Sapling::PerspectiveCamera::UpdateProjectionMatrix()
 	{
-		_fov = fov;
-		_aspectRatio = aspectRatio;
-		_nearClip = nearClip;
-		_farClip = farClip;
-		SetProjectionMatrix(glm::perspective(glm::radians(fov), aspectRatio, nearClip, farClip));
+		SetProjectionMatrix(glm::perspective(glm::radians(_fov), _aspectRatio, _nearClip, _farClip));
+	}
+
+	void PerspectiveCamera::CopySharedProperties(const Camera& other)
+	{
+		_position = other.GetPosition();
+		_rotation = other.GetRotation();
+		_nearClip = other.GetNearClip();
+		_farClip = other.GetFarClip();
+		_aspectRatio = other.GetAspectRatio();
+		UpdateViewMatrix(true);
+		UpdateProjectionMatrix();
 	}
 
 	void PerspectiveCamera::SetFOV(float fov)
 	{
-		SetProjectionMatrix(glm::perspective(glm::radians(fov), _aspectRatio, _nearClip, _farClip));
-	}
-
-	void PerspectiveCamera::SetAspectRatio(float aspectRatio)
-	{
-		SetProjectionMatrix(glm::perspective(glm::radians(_fov), aspectRatio, _nearClip, _farClip));
+		_fov = fov;
+		UpdateProjectionMatrix();
 	}
 
 	void PerspectiveCamera::SetNearClip(float nearClip)
 	{
-		SetProjectionMatrix(glm::perspective(glm::radians(_fov), _aspectRatio, nearClip, _farClip));
+		_nearClip = nearClip;
+		UpdateProjectionMatrix();
 	}
 
 	void PerspectiveCamera::SetFarClip(float farClip)
 	{
-		SetProjectionMatrix(glm::perspective(glm::radians(_fov), _aspectRatio, _nearClip, farClip));
+		_farClip = farClip;
+		UpdateProjectionMatrix();
+	}
+
+	void PerspectiveCamera::SetAspectRatio(float aspectRatio)
+	{
+		_aspectRatio = aspectRatio;
+		UpdateProjectionMatrix();
 	}
 }

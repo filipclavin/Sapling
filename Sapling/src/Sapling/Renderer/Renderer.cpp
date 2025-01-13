@@ -9,7 +9,7 @@ namespace Sapling
 {
 	Renderer::SceneData* Renderer::_sceneData = new SceneData();
 
-    void Sapling::Renderer::BeginScene(glm::mat4 viewProjectionMatrix)
+    void Sapling::Renderer::BeginScene(const glm::mat4& viewProjectionMatrix)
     {
 		_sceneData->ViewProjectionMatrix = viewProjectionMatrix;
     }

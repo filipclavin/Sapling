@@ -4,15 +4,11 @@
 
 class ExampleLayer : public Sapling::Layer
 {
-	static bool s_PerspectiveCamera;
-
-private:
-	Sapling::PerspectiveCamera _camera;
-	
 public:
 	ExampleLayer()
 		: Layer("Example")
 	{
+		_activeCamera = &_perspectiveCamera;
 		_vertexArray = Sapling::VertexArray::Create();
 
 		float vertices[3 * 7] = {
@@ -114,7 +110,7 @@ public:
 
 		UpdateCamera();
 
-		Sapling::Renderer::BeginScene(_camera.GetProjectionMatrix());
+		Sapling::Renderer::BeginScene(_activeCamera->GetViewProjectionMatrix());
 
 		Sapling::Renderer::Submit(_squareVA, _squareShader);
 		Sapling::Renderer::Submit(_vertexArray, _shader);
@@ -122,17 +118,66 @@ public:
 		Sapling::Renderer::EndScene();
 	}
 
+	void OnEvent(Sapling::Event& event) override
+	{
+		Sapling::EventDispatcher dispatcher(event);
+		dispatcher.Dispatch<Sapling::MouseMovedEvent>(BIND_EVENT_FN(ExampleLayer::OnMouseMoved));
+	}
+
+
+	void OnImGuiRender() override
+	{
+		ImGui::Begin("Test");
+		ImGui::Button("Toggle Camera Type");
+		if (ImGui::IsItemClicked())
+		{
+			if (_cameraType == Sapling::CameraType::Perspective)
+			{
+				_cameraType = Sapling::CameraType::Orthographic;
+				_orthographicCamera.CopySharedProperties(_perspectiveCamera);
+				_activeCamera = &_orthographicCamera;
+			}
+			else
+			{
+				_cameraType = Sapling::CameraType::Perspective;
+				_perspectiveCamera.CopySharedProperties(_orthographicCamera);
+				_activeCamera = &_perspectiveCamera;
+			}
+		}
+		ImGui::End();
+	}
+
+private:
 	void UpdateCamera()
 	{
 		bool cameraMoved = false;
 
-		glm::quat cameraRotation = _camera.GetRotation();
+		glm::quat cameraRotation = _activeCamera->GetRotation();
+
+		
+		bool cameraRotated = false;
+
+		if (Sapling::Input::IsKeyPressed(Sapling::KEY::KEY_LEFT))
+		{
+			cameraRotation = glm::normalize(glm::angleAxis(glm::radians(0.5f), glm::vec3(0.0f, 0.0f, 1.0f)) * cameraRotation);
+			cameraRotated = true;
+		}
+		if (Sapling::Input::IsKeyPressed(Sapling::KEY::KEY_RIGHT))
+		{
+			cameraRotation = glm::normalize(glm::angleAxis(glm::radians(-0.5f), glm::vec3(0.0f, 0.0f, 1.0f)) * cameraRotation);
+			cameraRotated = true;
+		}
+
+		if (cameraRotated)
+		{
+			_activeCamera->SetRotation(cameraRotation);
+		}
 
 		glm::vec3 cameraForward = cameraRotation * glm::vec3(0.0f, 0.0f, -1.0f);
 		glm::vec3 cameraRight = cameraRotation * glm::vec3(1.0f, 0.0f, 0.0f);
 		glm::vec3 cameraUp = cameraRotation * glm::vec3(0.0f, 1.0f, 0.0f); 
 
-		glm::vec3 cameraPosition = _camera.GetPosition();
+		glm::vec3 cameraPosition = _activeCamera->GetPosition();
 		
 		if (Sapling::Input::IsKeyPressed(Sapling::KEY::KEY_W))
 		{
@@ -167,30 +212,24 @@ public:
 
 		if (cameraMoved)
 		{
-			_camera.SetPosition(cameraPosition);
+			_activeCamera->SetPosition(cameraPosition);
 		}
-	}
-
-	void OnEvent(Sapling::Event& event) override
-	{
-		Sapling::EventDispatcher dispatcher(event);
-		dispatcher.Dispatch<Sapling::MouseMovedEvent>(BIND_EVENT_FN(ExampleLayer::OnMouseMoved));
 	}
 
     bool OnMouseMoved(Sapling::MouseMovedEvent& event)
     {
         if (Sapling::Input::IsMouseButtonPressed(Sapling::MOUSE_BTN::MOUSE_LEFT))
         {
-			glm::vec2 delta = event.GetDelta();
-			glm::quat cameraRotation = _camera.GetRotation();
+            glm::vec2 delta = event.GetDelta();
+            glm::quat cameraRotation = _activeCamera->GetRotation();
 
-			glm::quat pitch = glm::angleAxis(glm::radians(delta.y * 0.1f), glm::vec3(1.0f, 0.0f, 0.0f));
-			glm::quat yaw = glm::angleAxis(glm::radians(delta.x * 0.1f), glm::vec3(0.0f, 1.0f, 0.0f));
+            glm::quat pitch = glm::angleAxis(glm::radians(-delta.y * 0.1f), glm::vec3(1.0f, 0.0f, 0.0f));
+            glm::quat yaw = glm::angleAxis(glm::radians(-delta.x * 0.1f), glm::vec3(0.0f, 1.0f, 0.0f));
 
-			cameraRotation = glm::normalize(yaw * pitch * cameraRotation);
+            cameraRotation = glm::normalize(yaw * cameraRotation * pitch);
 
-			_camera.SetRotation(cameraRotation);
-			return true;
+            _activeCamera->SetRotation(cameraRotation);
+            return true;
         }
 
         return false;
@@ -200,38 +239,37 @@ public:
 	{
 		float yOffset = event.GetOffset().y;
 
-		//if (typeid(_camera) == typeid(Sapling::OrthographicCamera))
-		//{
-		//	float zoomLevel = _camera.GetZoomLevel();
-		//	zoomLevel -= yOffset * 0.1f;
-		//	zoomLevel = std::max(zoomLevel, 0.25f);
-		//	_camera.SetZoomLevel(zoomLevel);
-		//}
-		//else if (typeid(_camera) == typeid(Sapling::PerspectiveCamera))
-		//{
-		//	float fov = _camera.GetFOV();
-		//	fov -= yOffset * 0.1f;
-		//	fov = std::max(fov, 1.0f);
-		//	fov = std::min(fov, 45.0f);
-		//	_camera.SetFOV(fov);
-		//}
+		if (_cameraType == Sapling::CameraType::Perspective)
+		{
+			float fov = _perspectiveCamera.GetFOV();
+			fov -= yOffset * 0.1f;
+			fov = std::max(fov, 1.0f);
+			fov = std::min(fov, 45.0f);
+			_perspectiveCamera.SetFOV(fov);
+		}
+		else
+		{
+			float zoomLevel = _orthographicCamera.GetZoomLevel();
+			zoomLevel -= yOffset * 0.1f;
+			zoomLevel = std::max(zoomLevel, 0.25f);
+			_orthographicCamera.SetZoomLevel(zoomLevel);
+		}
 
 		return true;
 	}
 
-	void OnImGuiRender() override
-	{
-		ImGui::Begin("Test");
-		ImGui::Text("Hello World");
-		ImGui::End();
-	}
-
-private:
 	std::shared_ptr<Sapling::Shader> _shader;
 	std::shared_ptr<Sapling::VertexArray> _vertexArray;
 
 	std::shared_ptr<Sapling::Shader> _squareShader;
 	std::shared_ptr<Sapling::VertexArray> _squareVA;
+
+	Sapling::CameraType _cameraType = Sapling::CameraType::Perspective;
+
+	Sapling::PerspectiveCamera _perspectiveCamera;
+	Sapling::OrthographicCamera _orthographicCamera;
+
+	Sapling::Camera* _activeCamera;
 };
 
 class Sandbox : public Sapling::Application

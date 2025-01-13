@@ -10,7 +10,7 @@ namespace Sapling
 	class Renderer
 	{
 	public:
-		static void BeginScene(glm::mat4 viewProjectionMatrix);
+		static void BeginScene(const glm::mat4& viewProjectionMatrix);
 		static void EndScene();
 
 		static void Submit(const std::shared_ptr<VertexArray>& vertexArray, const std::shared_ptr<Shader> shader);
