@@ -14,6 +14,7 @@ namespace Sapling
 			: _mousePos(mousePos) {}
 
 		glm::vec2 GetPosition() const { return _mousePos; }
+		glm::vec2 GetDelta() const { return _mousePos - s_PrevMousePos; }
 
 		std::string ToString() const override
 		{
@@ -27,6 +28,9 @@ namespace Sapling
 
 	private:
 		glm::vec2 _mousePos;
+		static glm::vec2 s_PrevMousePos;
+
+		friend class Window;
 	};
 
 	class MouseScrolledEvent : public Event

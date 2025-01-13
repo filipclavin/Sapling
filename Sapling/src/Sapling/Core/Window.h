@@ -2,8 +2,8 @@
 
 #include "sappch.h"
 
-
 #include "Sapling/Events/Event.h"
+#include "Sapling/Events/MouseEvent.h"
 
 namespace Sapling
 {
@@ -40,5 +40,8 @@ namespace Sapling
 		virtual void* GetNativeWindow() const = 0;
 
 		static Window* Create(const WindowProps& props = WindowProps());
+
+	protected:
+		static void SetPrevMousePos(glm::vec2 pos) { MouseMovedEvent::s_PrevMousePos = pos; }
 	};
 }

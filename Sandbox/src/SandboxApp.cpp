@@ -4,6 +4,11 @@
 
 class ExampleLayer : public Sapling::Layer
 {
+	static bool s_PerspectiveCamera;
+
+private:
+	Sapling::PerspectiveCamera _camera;
+	
 public:
 	ExampleLayer()
 		: Layer("Example")
@@ -51,30 +56,32 @@ public:
 			layout(location = 0) in vec3 a_Position;
 			layout(location = 1) in vec4 a_Color;
 
-			out vec3 position;
+			uniform mat4 u_ViewProjection;
+			uniform mat4 u_Model;
+
 			out vec4 color;
 
 			void main()
 			{
-				position = a_Position;
 				color = a_Color;
-				gl_Position = vec4(a_Position, 1.0);
+				gl_Position = u_ViewProjection * u_Model * vec4(a_Position, 1.0);
 			}
 		)";
 
-		std::string blueVertexSrc = R"(
+		std::string squareVertexSrc = R"(
 			#version 330 core
 
 			layout(location = 0) in vec3 a_Position;
 
-			out vec3 position;
+			uniform mat4 u_ViewProjection;
+			uniform mat4 u_Model;
+
 			out vec4 color;
 
 			void main()
 			{
-				position = a_Position;
 				color = vec4(0.0, 0.0, 1.0, 1.0);
-				gl_Position = vec4(a_Position, 1.0);
+				gl_Position = u_ViewProjection * u_Model * vec4(a_Position, 1.0);
 			}
 		)";
 
@@ -83,7 +90,6 @@ public:
 
 			layout(location = 0) out vec4 o_color;
 
-			in vec3 position;
 			in vec4 color;
 
 			void main()
@@ -93,33 +99,124 @@ public:
 		)";
 
 		_shader = Sapling::Shader::Create(vertexSrc, fragmentSrc);
-		_squareShader = Sapling::Shader::Create(blueVertexSrc, fragmentSrc);
+		_shader->Bind();
+		_shader->SetMat4("u_Model", glm::translate(glm::mat4(1.0f), glm::vec3(-0.5f, 0.0f, 0.1f)));
+
+		_squareShader = Sapling::Shader::Create(squareVertexSrc, fragmentSrc);
+		_squareShader->Bind();
+		_squareShader->SetMat4("u_Model", glm::translate(glm::mat4(1.0f), glm::vec3(0.5f, 0.0f, 0.0f)));
 	}
 
 	void OnUpdate() override
 	{
-		Sapling::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
+		Sapling::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
 		Sapling::RenderCommand::Clear();
 
-		Sapling::Renderer::BeginScene();
+		UpdateCamera();
 
-		_squareShader->Bind();
-		Sapling::Renderer::Submit(_squareVA);
+		Sapling::Renderer::BeginScene(_camera.GetProjectionMatrix());
 
-		_shader->Bind();
-		Sapling::Renderer::Submit(_vertexArray);
+		Sapling::Renderer::Submit(_squareVA, _squareShader);
+		Sapling::Renderer::Submit(_vertexArray, _shader);
 
 		Sapling::Renderer::EndScene();
 	}
 
+	void UpdateCamera()
+	{
+		bool cameraMoved = false;
+
+		glm::quat cameraRotation = _camera.GetRotation();
+
+		glm::vec3 cameraForward = cameraRotation * glm::vec3(0.0f, 0.0f, -1.0f);
+		glm::vec3 cameraRight = cameraRotation * glm::vec3(1.0f, 0.0f, 0.0f);
+		glm::vec3 cameraUp = cameraRotation * glm::vec3(0.0f, 1.0f, 0.0f); 
+
+		glm::vec3 cameraPosition = _camera.GetPosition();
+		
+		if (Sapling::Input::IsKeyPressed(Sapling::KEY::KEY_W))
+		{
+			cameraPosition += cameraForward * 0.01f;
+			cameraMoved = true;
+		}
+		if (Sapling::Input::IsKeyPressed(Sapling::KEY::KEY_A))
+		{
+			cameraPosition -= cameraRight * 0.01f;
+			cameraMoved = true;
+		}
+		if (Sapling::Input::IsKeyPressed(Sapling::KEY::KEY_S))
+		{
+			cameraPosition -= cameraForward * 0.01f;
+			cameraMoved = true;
+		}
+		if (Sapling::Input::IsKeyPressed(Sapling::KEY::KEY_D))
+		{
+			cameraPosition += cameraRight * 0.01f;
+			cameraMoved = true;
+		}
+		if (Sapling::Input::IsKeyPressed(Sapling::KEY::KEY_Q))
+		{
+			cameraPosition -= cameraUp * 0.01f;
+			cameraMoved = true;
+		}
+		if (Sapling::Input::IsKeyPressed(Sapling::KEY::KEY_E))
+		{
+			cameraPosition += cameraUp * 0.01f;
+			cameraMoved = true;
+		}
+
+		if (cameraMoved)
+		{
+			_camera.SetPosition(cameraPosition);
+		}
+	}
+
 	void OnEvent(Sapling::Event& event) override
 	{
-		if (event.GetEventType() == Sapling::EventType::CharTyped)
-		{
-			Sapling::CharTypedEvent& e = (Sapling::CharTypedEvent&)event;
-			
-			std::cout << e << std::endl;
-		}
+		Sapling::EventDispatcher dispatcher(event);
+		dispatcher.Dispatch<Sapling::MouseMovedEvent>(BIND_EVENT_FN(ExampleLayer::OnMouseMoved));
+	}
+
+    bool OnMouseMoved(Sapling::MouseMovedEvent& event)
+    {
+        if (Sapling::Input::IsMouseButtonPressed(Sapling::MOUSE_BTN::MOUSE_LEFT))
+        {
+			glm::vec2 delta = event.GetDelta();
+			glm::quat cameraRotation = _camera.GetRotation();
+
+			glm::quat pitch = glm::angleAxis(glm::radians(delta.y * 0.1f), glm::vec3(1.0f, 0.0f, 0.0f));
+			glm::quat yaw = glm::angleAxis(glm::radians(delta.x * 0.1f), glm::vec3(0.0f, 1.0f, 0.0f));
+
+			cameraRotation = glm::normalize(yaw * pitch * cameraRotation);
+
+			_camera.SetRotation(cameraRotation);
+			return true;
+        }
+
+        return false;
+    }
+
+	bool OnScroll(Sapling::MouseScrolledEvent& event)
+	{
+		float yOffset = event.GetOffset().y;
+
+		//if (typeid(_camera) == typeid(Sapling::OrthographicCamera))
+		//{
+		//	float zoomLevel = _camera.GetZoomLevel();
+		//	zoomLevel -= yOffset * 0.1f;
+		//	zoomLevel = std::max(zoomLevel, 0.25f);
+		//	_camera.SetZoomLevel(zoomLevel);
+		//}
+		//else if (typeid(_camera) == typeid(Sapling::PerspectiveCamera))
+		//{
+		//	float fov = _camera.GetFOV();
+		//	fov -= yOffset * 0.1f;
+		//	fov = std::max(fov, 1.0f);
+		//	fov = std::min(fov, 45.0f);
+		//	_camera.SetFOV(fov);
+		//}
+
+		return true;
 	}
 
 	void OnImGuiRender() override

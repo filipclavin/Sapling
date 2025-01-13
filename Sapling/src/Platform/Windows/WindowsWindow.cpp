@@ -131,6 +131,7 @@ namespace Sapling
 
 			MouseMovedEvent event({xPos, yPos});
 			data.EventCallback(event);
+			SetPrevMousePos({ xPos, yPos });
 		});
 
 		glfwSetMouseButtonCallback(_nativeWindow, [](GLFWwindow* window, int button, int action, int mods)

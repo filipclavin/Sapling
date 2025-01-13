@@ -36,6 +36,8 @@ namespace Sapling
 			throw std::runtime_error("Could not initialize GLAD!");
 		}
 
+		glEnable(GL_DEPTH_TEST);
+
 		std::cout << "OpenGL Info:\n";
 		std::cout << "  Vendor: " << glGetString(GL_VENDOR) << "\n";
 		std::cout << "  Renderer: " << glGetString(GL_RENDERER) << "\n";

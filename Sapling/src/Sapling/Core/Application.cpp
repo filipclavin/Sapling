@@ -52,8 +52,6 @@ namespace Sapling
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(Application::OnWindowClose));
 
-		// std::cout << e << std::endl;
-
 		for (auto it = _layerStack.end(); it != _layerStack.begin();)
 		{
 			(*--it)->OnEvent(e);

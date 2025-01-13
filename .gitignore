@@ -1,6 +1,7 @@
 # Directories
 .vs/
 bin/
+x64/
 lib/
 
 # Files

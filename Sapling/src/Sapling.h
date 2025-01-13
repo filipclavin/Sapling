@@ -2,7 +2,11 @@
 
 // For use by Sapling applications
 
-// ---Application----------------------------------
+// ---Core----------------------------------
+#include "Sapling/Core/Base.h"
+// -----------------------------------------
+
+// ---Application---------------------------
 #include "Sapling/Core/Application.h"
 #include "Sapling/Core/Layer.h"
 #include "Sapling/ImGui/ImGuiLayer.h"
@@ -14,6 +18,7 @@
 #include "Sapling/Renderer/Shader.h"
 #include "Sapling/Renderer/Buffer.h"
 #include "Sapling/Renderer/VertexArray.h"
+#include "Sapling/Renderer/Camera.h"
 // -----------------------------------------
 
 // ---Input---------------------------------
