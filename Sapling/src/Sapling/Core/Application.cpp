@@ -2,8 +2,10 @@
 #include "Application.h"
 
 #include "Sapling/Core/Input.h"
-
 #include "Platform/Windows/WindowsWindow.h"
+#include "Sapling/Core/DeltaTime.h"
+
+#include <GLFW/glfw3.h>
 
 namespace Sapling
 {
@@ -31,9 +33,13 @@ namespace Sapling
 	{
 		while (_running)
 		{
+			float time = static_cast<float>(glfwGetTime()); // TODO: Platform::GetTime()
+			DeltaTime dt = time - _lastFrameTime;
+			_lastFrameTime = time;
+
 			for (Layer* layer : _layerStack)
 			{
-				layer->OnUpdate();
+				layer->OnUpdate(dt);
 			}
 
 			_imguiLayer->Begin();

@@ -34,6 +34,8 @@ namespace Sapling
 		bool _running = true;
 
 		static Application* s_instance;
+
+		float _lastFrameTime = 0.0f;
 	};
 
 	// To be defined in CLIENT

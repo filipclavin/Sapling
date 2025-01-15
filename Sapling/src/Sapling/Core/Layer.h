@@ -1,7 +1,7 @@
 #pragma once
 
-
 #include "Sapling/Events/Event.h"
+#include "Sapling/Core/DeltaTime.h"
 
 namespace Sapling
 {
@@ -13,7 +13,7 @@ namespace Sapling
 
 		virtual void OnAttach() {}
 		virtual void OnDetach() {}
-		virtual void OnUpdate() {}
+		virtual void OnUpdate(DeltaTime deltaTime) {}
 		virtual void OnEvent(Event& event) {}
 		virtual void OnImGuiRender() {}
 

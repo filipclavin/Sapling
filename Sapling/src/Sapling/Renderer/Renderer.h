@@ -13,7 +13,7 @@ namespace Sapling
 		static void BeginScene(const glm::mat4& viewProjectionMatrix);
 		static void EndScene();
 
-		static void Submit(const std::shared_ptr<VertexArray>& vertexArray, const std::shared_ptr<Shader> shader);
+		static void Submit(const std::shared_ptr<VertexArray>& vertexArray, const std::shared_ptr<Shader> shader, const glm::mat4& transform);
 
 		inline static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
 

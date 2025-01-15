@@ -18,10 +18,11 @@ namespace Sapling
     {
     }
 
-	void Renderer::Submit(const std::shared_ptr<VertexArray>& vertexArray, const std::shared_ptr<Shader> shader)
+	void Sapling::Renderer::Submit(const std::shared_ptr<VertexArray>& vertexArray, const std::shared_ptr<Shader> shader, const glm::mat4& transform = glm::mat4(1.0f))
     {
 		shader->Bind();
 		shader->SetMat4("u_ViewProjection", _sceneData->ViewProjectionMatrix);
+		shader->SetMat4("u_Transform", transform);
 
 		vertexArray->Bind();
 		RenderCommand::DrawIndexed(vertexArray);
