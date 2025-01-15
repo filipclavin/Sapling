@@ -12,36 +12,7 @@ public:
 	{
 		_activeCamera = &_perspectiveCamera;
 
-		float vertices[3 * 7] = {
-			-0.5f, -0.5f, 0.0f, 1.0, 0.0, 1.0, 1.0,
-			 0.5f, -0.5f, 0.0f, 0.0, 0.0, 1.0, 1.0,
-			 0.0f,  0.5f, 0.0f, 1.0, 1.0, 0.0, 1.0
-		};
-		unsigned int indices[3] = { 0, 1, 2 };
-
-		_triangleMesh = Mesh(vertices, sizeof(vertices), indices, sizeof(indices) / sizeof(unsigned int),
-		{
-			{ShaderDataType::Float3, "a_Position"},
-			{ShaderDataType::Float4, "a_Color"},
-		});
-		
-		float squareVertices[3 * 4] = {
-			-0.75f, -0.75f, 0.0f,
-			 0.75f, -0.75f, 0.0f,
-			 0.75f,  0.75f, 0.0f,
-			-0.75f,  0.75f, 0.0f
-		};
-		unsigned int squareIndices[2 * 3] = {
-			0, 1, 2,
-			2, 3, 0
-		};
-
-		_squareMesh = Mesh(squareVertices, sizeof(squareVertices), squareIndices, sizeof(squareIndices) / sizeof(unsigned int),
-		{
-			{ShaderDataType::Float3, "a_Position"}
-		});
-
-		std::string vertexSrc = R"(
+		std::string triangleVertexSrc = R"(
 			#version 330 core
 
 			layout(location = 0) in vec3 a_Position;
@@ -89,8 +60,42 @@ public:
 			}
 		)";
 
-		_triangleShader = Shader::Create(vertexSrc, fragmentSrc);
-		_squareShader = Shader::Create(squareVertexSrc, fragmentSrc);
+		float vertices[3 * 7] = {
+			-0.5f, -0.5f, 0.0f, 1.0, 0.0, 1.0, 1.0,
+			 0.5f, -0.5f, 0.0f, 0.0, 0.0, 1.0, 1.0,
+			 0.0f,  0.5f, 0.0f, 1.0, 1.0, 0.0, 1.0
+		};
+		unsigned int indices[3] = { 0, 1, 2 };
+
+		Transform triangleTransform = Transform({-1.0f, 0.0f, 1.0f});
+		BufferLayout triangleLayout = {
+			{ShaderDataType::Float3, "a_Position"},
+			{ShaderDataType::Float4, "a_Color"},
+		};
+		Mesh triangleMesh(vertices, sizeof(vertices), indices, sizeof(indices) / sizeof(unsigned int), triangleLayout);
+		auto triangleShader = Shader::Create(triangleVertexSrc, fragmentSrc);
+
+		_triangle = GameObject("Triangle", std::make_shared<Transform>(triangleTransform), std::make_shared<Mesh>(triangleMesh), triangleShader);
+		
+		float squareVertices[3 * 4] = {
+			-0.75f, -0.75f, 0.0f,
+			 0.75f, -0.75f, 0.0f,
+			 0.75f,  0.75f, 0.0f,
+			-0.75f,  0.75f, 0.0f
+		};
+		unsigned int squareIndices[2 * 3] = {
+			0, 1, 2,
+			2, 3, 0
+		};
+
+		Transform squareTransform = Transform();
+		BufferLayout squareLayout = {
+			{ShaderDataType::Float3, "a_Position"}
+		};
+		Mesh squareMesh(squareVertices, sizeof(squareVertices), squareIndices, sizeof(squareIndices) / sizeof(unsigned int), squareLayout);
+		auto squareShader = Shader::Create(squareVertexSrc, fragmentSrc);
+
+		_square = GameObject("Square", std::make_shared<Transform>(), std::make_shared<Mesh>(squareMesh), squareShader);
 	}
 
 	void OnUpdate(DeltaTime deltaTime) override
@@ -102,11 +107,8 @@ public:
 
 		Renderer::BeginScene(_activeCamera->GetViewProjectionMatrix());
 		
-		glm::mat4 triangleTransform = glm::translate(glm::mat4(1.0f), _trianglePosition);
-		Renderer::Submit(_triangleMesh.GetVertexArray(), _triangleShader, triangleTransform);
-
-		glm::mat4 squareTransform = glm::translate(glm::mat4(1.0f), _squarePosition);
-		Renderer::Submit(_squareMesh.GetVertexArray(), _squareShader, squareTransform);
+		Renderer::Submit(_triangle.Mesh->GetVertexArray(), _triangle.Shader, _triangle.Transform->GetMat4());
+		Renderer::Submit(_square.Mesh->GetVertexArray(), _square.Shader, _square.Transform->GetMat4());
 
 		Renderer::EndScene();
 	}
@@ -117,7 +119,6 @@ public:
 		dispatcher.Dispatch<MouseMovedEvent>(BIND_EVENT_FN(ExampleLayer::OnMouseMoved));
 		dispatcher.Dispatch<MouseScrolledEvent>(BIND_EVENT_FN(ExampleLayer::OnScroll));
 	}
-
 
 	void OnImGuiRender() override
 	{
@@ -252,16 +253,10 @@ private:
 		return true;
 	}
 
-	std::shared_ptr<Shader> _triangleShader;
-	Mesh					_triangleMesh;
-	glm::vec3				_trianglePosition = { -1.0f, 0.0f, 1.0f };
+	GameObject _triangle;
+	GameObject _square;
 
-	std::shared_ptr<Shader> _squareShader;
-	Mesh					_squareMesh;
-	glm::vec3				_squarePosition = { 0.0f, 0.0f, 0.0f };
-
-	CameraType _cameraType = CameraType::Perspective;
-
+	CameraType			_cameraType = CameraType::Perspective;
 	PerspectiveCamera	_perspectiveCamera;
 	OrthographicCamera	_orthographicCamera;
 	Camera*				_activeCamera;

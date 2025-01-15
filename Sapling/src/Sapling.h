@@ -8,6 +8,8 @@
 #include "Sapling/Core/Layer.h"
 #include "Sapling/ImGui/ImGuiLayer.h"
 #include "Sapling/Core/DeltaTime.h"
+#include "Sapling/Core/GameObject.h"
+#include "Sapling/Core/Transform.h"
 // -----------------------------------------
 
 // ---Renderer------------------------------

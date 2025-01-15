@@ -8,10 +8,10 @@ namespace Sapling
 		DeltaTime(float time = 0.0f)
 			: _time(time) {}
 
-		float GetMilliseconds() const { return _time; }
-		float GetSeconds() const { return _time / 1000.0f; }
+		inline float GetMilliseconds() const { return _time; }
+		inline float GetSeconds() const { return _time / 1000.0f; }
 
-		operator float() const { return _time; }
+		inline operator float() const { return _time; }
 
 	private:
 		float _time;

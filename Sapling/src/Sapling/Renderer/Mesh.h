@@ -23,8 +23,8 @@ namespace Sapling
 		const std::shared_ptr<IndexBuffer>& GetIndexBuffer() const { return _indexBuffer; }
 
 	private:
-		std::shared_ptr<VertexArray> _vertexArray;
-		std::shared_ptr<VertexBuffer> _vertexBuffer;
-		std::shared_ptr<IndexBuffer> _indexBuffer;
+		std::shared_ptr<VertexArray>	_vertexArray;
+		std::shared_ptr<VertexBuffer>	_vertexBuffer;
+		std::shared_ptr<IndexBuffer>	_indexBuffer;
 	};
 }

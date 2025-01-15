@@ -1,6 +1,5 @@
 #pragma once
 
-
 namespace Sapling
 {
 // Based off of glfw3.h
